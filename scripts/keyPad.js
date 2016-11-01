@@ -15,7 +15,9 @@ var keyPad = (function() {
             .append("<li id='channelUp'>Channel Up</li>")
             .append("<li id='channelDown'>Channel Down</li>")
             .append("<li id='redKey'>Red Key</li>")
-            .append("<li id='backKey'>Back Key</li>");
+            .append("<li id='backKey'>Back Key</li>")
+            .append("<li id='KOR'>한국어</li>")
+            .append("<li id='ENG'>English</li>");
         
         keypadTag.append(listTag);
         $("body").append(keypadTag);
@@ -33,6 +35,12 @@ var keyPad = (function() {
         });
         $("#backKey").click(function() {
             viewManager.onKeyDown("BACK");
+        });
+        $("#KOR").click(function() {
+            viewManager.onKeyDown("KOR");
+        });
+        $("#ENG").click(function() {
+            viewManager.onKeyDown("ENG");
         });
     }
     

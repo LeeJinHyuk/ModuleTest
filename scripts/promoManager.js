@@ -8,15 +8,15 @@ var promoManager = (function() {
 
     function _init() {
         channelManager.addChannelEventListener(onChannelEvent);
+        viewManager.addViewEventListener(onViewEvent);
     }
     
     function _actTrigger() {
         hidePromoTrigger();
-        
     }
     
     function showPromoTrigger() {
-        if (isShow === false) {
+        if (isShow === false && channelManager.getCurrentChannel().NUM === 3) {
             var promoTriggerTag = $("<div id='promoTrigger'>바로보기</div>");
             $("body").append(promoTriggerTag);
             isShow = true;
@@ -35,6 +35,19 @@ var promoManager = (function() {
             showPromoTrigger();
         } else {
             hidePromoTrigger();
+        }
+    }
+
+    function onViewEvent(size) {
+        switch(size) {
+            case 0:
+                // FULL
+                showPromoTrigger();
+                break;
+            case 1:
+                // SMALL
+                hidePromoTrigger();
+                break;
         }
     }
     

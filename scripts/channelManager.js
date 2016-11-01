@@ -37,6 +37,10 @@ var channelManager = (function() {
     function _addChannelEventListener(callback) {
         listener.push(callback);
     }
+
+    function _getCurrentChannel() {
+        return currentChannel;
+    }
     
     function notifyEvent() {
         for(var i=0; i<listener.length; i++) {
@@ -54,6 +58,7 @@ var channelManager = (function() {
     return {
         init : _init,
         changeChannel : _changeChannel,
-        addChannelEventListener : _addChannelEventListener
+        addChannelEventListener : _addChannelEventListener,
+        getCurrentChannel : _getCurrentChannel
     };
 })();
