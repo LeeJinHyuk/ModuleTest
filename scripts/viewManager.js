@@ -61,7 +61,7 @@ var viewManager = (function() {
         }
     }
     
-    function hidePromoDetail() {
+    function hideDetail() {
         var tmpPromoDetail = $("#promoDetail");
 
         if (tmpPromoDetail.length !== 0) {
@@ -72,7 +72,7 @@ var viewManager = (function() {
 
     function onChannelEvent(channel) {
         showScreen(channel);
-        hidePromoDetail();
+        hideDetail();
     }
 
     function onStorageEvent(key, value) {
@@ -114,7 +114,7 @@ var viewManager = (function() {
                 showDetail();
                 break;
             case "BACK":
-                hidePromoDetail();
+                hideDetail();
                 break;
             case "KOR":
                 storageManager.setItem("language", "ko");
