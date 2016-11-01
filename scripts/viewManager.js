@@ -9,6 +9,7 @@ var viewManager = (function() {
     };
 
     var currentMode = SIZE.FULL;
+    var currentLang = (storageManager.getItem("language") ? storageManager.getItem("language") : "ko");
     var existTrigger = false;
     var listener = [];
 
@@ -27,12 +28,13 @@ var viewManager = (function() {
         }
         if (tmpScreenTag.length === 0) {
             var screenTag = $("<div id='screen'></div>").css("background", "url(" + channel.URL + ")");
-            var titleTag = $("<span>Channel Num : " + channel.NUM + " Channel Name : " + channel.KO_NAME + "</span>");
+            var titleTag =
+                $("<span>Channel Num : " + channel.NUM + " Channel Name : " + (currentLang === "ko" ? channel.KO_NAME : channel.ENG_NAME) + "</span>");
             screenTag.append(titleTag);
             $("body").append(screenTag);
         } else {
             tmpScreenTag.css("background", "url(" + channel.URL + ")");
-            $("span", tmpScreenTag).text("Channel Num : " + channel.NUM + " Channel Name : " + channel.KO_NAME);
+            $("span", tmpScreenTag).text("Channel Num : " + channel.NUM + " Channel Name : " + (currentLang === "ko" ? channel.KO_NAME : channel.ENG_NAME));
         }
     }
 
@@ -77,7 +79,9 @@ var viewManager = (function() {
         var tmpCurrentChannel = channelManager.getCurrentChannel();
         var tmpScreenTag;
 
-        if (SIZE.FULL) {
+        currentLang = value;
+
+        if (currentMode === SIZE.FULL) {
             tmpScreenTag = $("#screen");
         } else {
             tmpScreenTag = $("#smallScreen");
