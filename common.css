@@ -18,15 +18,22 @@ html, body, ul {
 }
 
 #screen {
+    position: absolute;
+    left: 0px;
+    top: 0px;
     width: 1280px;
     height: 720px;
+    z-index: 1;
 }
-.smallScreen {
-    margin: 20px;
+#smallScreen {
+    position: absolute;
+    left: 20px;
+    top: 20px;
     width: 640px;
     height: 480px;
+    z-index: 1;
 }
-#screen span {
+#screen span, #smallScreen span {
     color: #FFFFFF;
     font-size: 20px;
     font-weight: bold;
@@ -45,6 +52,9 @@ html, body, ul {
 }
 
 #promoDetail {
+    position: absolute;
+    left: 0px;
+    top: 0px;
     width: 1280px;
     height: 720px;
     background-color: #000000;

@@ -9,6 +9,7 @@ var viewManager = (function() {
     };
 
     var currentMode = SIZE.FULL;
+    var existTrigger = false;
     var listener = [];
 
     function _init() {
@@ -17,7 +18,13 @@ var viewManager = (function() {
     }
 
     function showScreen(channel) {
-        var tmpScreenTag = $("#screen");
+        var tmpScreenTag;
+
+        if (currentMode === SIZE.FULL) {
+            tmpScreenTag = $("#screen");
+        } else {
+            tmpScreenTag = $("#smallScreen");
+        }
         if (tmpScreenTag.length === 0) {
             var screenTag = $("<div id='screen'></div>").css("background", "url(" + channel.URL + ")");
             var titleTag = $("<span>Channel Num : " + channel.NUM + " Channel Name : " + channel.KO_NAME + "</span>");
@@ -32,16 +39,17 @@ var viewManager = (function() {
     function resizeScreen(size) {
         switch(size) {
             case SIZE.FULL:
-                $("#screen").removeClass("smallScreen");
+                $("#smallScreen").attr("id", "screen");
                 break;
             case SIZE.SMALL:
-                $("#screen").addClass("smallScreen");
+                $("#screen").attr("id", "smallScreen");
                 break;
         }
+        currentMode = size;
         notifyEvent(size);
     }
     
-    function showPromoDetail() {
+    function showDetail() {
         var tmpPromoDetail = $("#promoDetail");
 
         if (tmpPromoDetail.length === 0) {
@@ -67,7 +75,13 @@ var viewManager = (function() {
 
     function onStorageEvent(key, value) {
         var tmpCurrentChannel = channelManager.getCurrentChannel();
-        var tmpScreenTag = $("#screen");
+        var tmpScreenTag;
+
+        if (SIZE.FULL) {
+            tmpScreenTag = $("#screen");
+        } else {
+            tmpScreenTag = $("#smallScreen");
+        }
 
         switch(key) {
             case "language":
@@ -80,9 +94,9 @@ var viewManager = (function() {
         }
     }
 
-    function notifyEvent() {
+    function notifyEvent(size) {
         for (var i=0; i<listener.length; i++) {
-            listener[i]();
+            listener[i](size);
         }
     }
 
@@ -93,7 +107,7 @@ var viewManager = (function() {
                 channelManager.changeChannel(keyCode);
                 break;
             case "RED":
-                showPromoDetail();
+                showDetail();
                 break;
             case "BACK":
                 hidePromoDetail();
